@@ -15,6 +15,8 @@ RESUME_AGENTS["opencode"] = (id) =>
   `opencode --session ${shellQuote(id)}`;
 RESUME_AGENTS["amp"] = (id) =>
   `amp --resume ${shellQuote(id)}`;
+RESUME_AGENTS["kiro"] = () =>
+  `kiro-cli chat --resume-picker`;
 
 /** Flags available for Claude Code resume. */
 export interface ClaudeResumeFlags {
