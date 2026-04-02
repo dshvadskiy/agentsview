@@ -212,7 +212,6 @@ var Registry = []AgentDef{
 		FindSourceFunc: FindKimiSourceFile,
 	},
 	{
-<<<<<<< HEAD
 		Type:        AgentClaudeAI,
 		DisplayName: "Claude.ai",
 		IDPrefix:    "claude-ai:",
