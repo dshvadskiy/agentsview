@@ -176,10 +176,13 @@ func DiscoverKiroIDESessions(dir string) []DiscoveredFile {
 // "<workspace-hash>:<filename-hash>".
 func FindKiroIDESourceFile(dir, rawID string) string {
 	wsHash, fileHash, ok := strings.Cut(rawID, ":")
-	if !ok || wsHash == "" || fileHash == "" {
+	if !ok || !IsValidSessionID(wsHash) || !IsValidSessionID(fileHash) {
 		return ""
 	}
 	candidate := filepath.Join(dir, wsHash, fileHash+".chat")
+	if abs, err := filepath.Abs(candidate); err != nil || !strings.HasPrefix(abs, filepath.Clean(dir)) {
+		return ""
+	}
 	if _, err := os.Stat(candidate); err != nil {
 		return ""
 	}

@@ -61,10 +61,13 @@ func DiscoverKiroSessions(sessionsDir string) []DiscoveredFile {
 // FindKiroSourceFile locates a Kiro session file by its raw
 // session ID (without the "kiro:" prefix).
 func FindKiroSourceFile(sessionsDir, rawID string) string {
-	if sessionsDir == "" || rawID == "" {
+	if sessionsDir == "" || !IsValidSessionID(rawID) {
 		return ""
 	}
 	candidate := filepath.Join(sessionsDir, rawID+".jsonl")
+	if abs, err := filepath.Abs(candidate); err != nil || !strings.HasPrefix(abs, filepath.Clean(sessionsDir)) {
+		return ""
+	}
 	if _, err := os.Stat(candidate); err != nil {
 		return ""
 	}

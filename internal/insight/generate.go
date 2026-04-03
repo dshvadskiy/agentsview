@@ -657,7 +657,7 @@ func generateKiro(
 		ctx, path,
 		"chat",
 		"--no-interactive",
-		"--trust-all-tools",
+		"--trust-tools=",
 		"--wrap", "never",
 	)
 	cmd.Env = agentEnv()
@@ -705,8 +705,7 @@ func generateKiro(
 		if trimmed == "" {
 			continue
 		}
-		if strings.HasPrefix(trimmed, "All tools are now trusted") ||
-			strings.HasPrefix(trimmed, "Agents can sometimes") ||
+		if strings.HasPrefix(trimmed, "Agents can sometimes") ||
 			strings.HasPrefix(trimmed, "Learn more at") ||
 			strings.HasPrefix(trimmed, "> ") ||
 			strings.HasPrefix(trimmed, "▸ Time:") {
